@@ -1,0 +1,75 @@
+{% extends 'home.html' %}
+{% block body %}
+
+<div class="container-fluid songs-container">
+
+    <div class="row">
+
+        <!-- Left Album Info -->
+        <div class="col-md-4">
+                    <div class="thumbnail ">
+                        
+                            <img src="{{album.Album_logo.url}}">
+                        
+                        <div class="caption">
+                            <h2>{{ album.Album_title }}</h2>
+                            <h4>{{ album.Artist }}</h4>
+
+                         </div>
+                    </div>
+                </div>
+        <!-- Right Song Info -->
+        <div class="col-sm-8 col-md-9">
+
+         
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All Songs</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th><h3>Title</h3></th>
+                            <th><h3>Audio File</h3></th>
+                            
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for song in album.song_set.all %}
+                            <tr>
+                                <td><h2>{{ song.song_title }}</h2></td>
+                                <td>
+                                    <a target="_blank" href="{{ song.audio_file.url }}">
+                                        <button type="button" class="btn btn-success btn-xs">
+                                            <span class="glyphicon glyphicon-play"></span>&nbsp; Play
+                                        </button>
+                                    </a>
+                                </td>  
+                                         <td>
+                                    
+                                        <button type="button" class="btn btn-success btn-xs" >
+                                    <a href=href="{% url 'music:add' song.id %}" style="color:white">add to myfav</a>
+                                        </button>
+                                    
+                                </td>  
+                                    
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

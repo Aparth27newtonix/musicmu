@@ -1,0 +1,97 @@
+{% extends 'home2.html' %}
+ {% load staticfiles %}
+{% block user_active %} active{% endblock %}
+{% block body %}
+ 
+        <h3>ENJOY MUSIC {{user.username}}</h3>
+         
+    <!-- Albums -->     
+        {% if albums %}
+      
+            {% for album in albums %}
+                <div class="col-md-4">
+                    <div class="thumbnail ">
+                        
+                            <img src="{{album.Album_logo.url}}">
+                        
+                        <div class="caption">
+                            <h2>{{ album.Album_title }}</h2>
+                            <h4>{{ album.Artist }}</h4>
+
+                            <!-- View Details -->
+                            <a href="{% url 'music:detail' album.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>    
+
+                        </div>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-12" style="color:black;font-size:30px">
+                <br>
+                
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; sorry no albums present
+            </div>
+        {% endif %}
+        <!-- If user searches and there are songs -->
+        {% if songs %}
+              
+        <div class="col-md-6">
+                <h3>Songs</h3>
+        </div>
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Song Title</th>
+                                    <th>Artist</th>
+                                    <th>Audio File</th>
+                                    <th>Album</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for song in songs %}
+
+                                    <tr>
+                                        <td>{{ song.song_title }}</td>
+                                        <td>{{ song.album.Artist }}</td>
+                                        <td>
+                                            <a target="_blank" href="{{ song.audio_file.url }}">
+                                                <button type="button" class="btn btn-success btn-xs">
+                                                    <span class="glyphicon glyphicon-play"></span>&nbsp; Play
+                                                </button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                          <div class="col-md-4 offset-md-4">
+                                            
+                                             <div class="thumbnail " style="height:60px">
+                                             <a href="{% url 'music:detail' song.album.id %}">
+                                                <img src="{{ song.album.Album_logo.url }}" class="img-responsive" style="width:80px;height: 50px; float: left; margin-right: 10px;" />
+                                            </a>
+                                            <a href="{% url 'music:detail' song.album.id %}">{{ song.album.Album_title }}</a>
+                                            </div>
+                                         </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                   
+                                      
+
+                            </tbody>
+                    </div>
+                </div>
+            </div>
+         </table>
+        </div>
+    </div>
+    </div>
+    
+      {% endif %}
+
+   
+
+{% endblock %}

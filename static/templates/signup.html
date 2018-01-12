@@ -1,0 +1,31 @@
+{% extends 'home.html' %}
+
+
+{% block body %}
+
+<div class="container-fluid">
+	 <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body-1" style="color:black ">
+	<h1>SIGNUP</h1>
+		<form method='POST'  action=''>
+			{% csrf_token %}
+     	<div class="form-group" style="font-size:15px" >
+     		 <label class="control-label col-sm-2" for="id_username" for="id_password">
+
+             </label>
+     		{{ form.as_p }}
+     	
+     	 <input type="submit">
+     	</div>
+    
+	
+		</form>
+</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock%}
